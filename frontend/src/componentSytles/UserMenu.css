@@ -1,0 +1,127 @@
+.user-menu-wrapper {
+  position: relative;
+}
+
+/* Avatar */
+.header-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Dropdown Card */
+.user-dropdown {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  width: 260px;
+  background: #212121;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 12px;
+  z-index: 999;
+  animation: dropdown 0.2s ease;
+}
+
+@keyframes dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* User Info */
+.user-info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.user-info h4 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.user-info p {
+  font-size: 12px;
+  color: #aaa;
+  margin: 0;
+}
+
+/* View Channel */
+.view-channel {
+  width: 100%;
+  margin: 10px 0;
+  padding: 6px;
+  border-radius: 20px;
+  border: 1px solid #444;
+  background: transparent;
+  color: #3ea6ff;
+  cursor: pointer;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: #333;
+  margin: 10px 0;
+}
+
+/* Menu */
+.user-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-dropdown li {
+  padding: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.user-dropdown li:hover {
+  background: #383838;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.menu-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.menu-item svg {
+  font-size: 20px;
+}
+
+
+/* Logout */
+.logout-btn {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  color: #ff4e4e;
+  cursor: pointer;
+  text-align: left;
+}

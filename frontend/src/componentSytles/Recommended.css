@@ -1,0 +1,78 @@
+
+.recommended {
+  flex: 1;
+  min-width: 280px;
+}
+
+/* Each Video Row */
+.side-video-list {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+/* Thumbnail */
+.side-video-list img {
+  width: 45%;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Video Info */
+.vid-info {
+  width: 55%;
+}
+
+.vid-info h4 {
+  font-size: 14px;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.vid-info p {
+  font-size: 12px;
+  color: #555;
+}
+
+/* ============================= */
+/* 🔥 Responsive Breakpoints */
+/* ============================= */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .recommended {
+    width: 100%;
+  }
+
+  .side-video-list img {
+    width: 40%;
+  }
+
+  .vid-info {
+    width: 60%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .side-video-list {
+    gap: 8px;
+  }
+
+  .side-video-list img {
+    width: 35%;
+  }
+
+  .vid-info {
+    width: 65%;
+  }
+
+  .vid-info h4 {
+    font-size: 13px;
+  }
+
+  .vid-info p {
+    font-size: 11px;
+  }
+}

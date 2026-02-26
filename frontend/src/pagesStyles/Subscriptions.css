@@ -1,0 +1,28 @@
+.subscriptions-page {
+  padding: 20px 30px;
+  /* background-color: #0f0f0f; */
+  min-height: 100vh;
+  /* color: #fff; */
+
+    /* Sidebar adjustment */
+  margin-left: 240px; /* sidebar open width */
+  transition: margin-left 0.3s ease;
+}
+
+
+/* Sidebar closed state */
+.subscriptions-page-grow {
+  margin-left: 80px; /* collapsed sidebar width */
+}
+
+.subscriptions-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.subscriptions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}

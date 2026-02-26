@@ -1,0 +1,10 @@
+.container {
+  padding: 20px;
+  padding-left: calc(var(--sidebar-large) + 20px);
+  transition: padding-left 0.3s ease;
+}
+
+/* When sidebar collapsed */
+.large-container {
+  padding-left: calc(var(--sidebar-small) + 20px);
+}

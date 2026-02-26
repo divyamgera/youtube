@@ -1,0 +1,148 @@
+/* ===== MAIN PAGE ===== */
+.history-page {
+  padding: 20px 32px;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease, padding 0.3s ease;
+}
+
+/* Sidebar open */
+.history-page {
+  margin-left: 240px; /* sidebar width */
+}
+
+
+
+.history-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+/* Sidebar collapsed */
+.history-page-grow {
+  margin-left: 72px; /* mini sidebar */
+}
+
+/* ===== TITLE ===== */
+.history-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+/* ===== SECTION ===== */
+/* .history-section {
+  margin-bottom: 28px;
+} */
+ 
+
+.history-date {
+  font-size: 14px;
+  font-weight: 500;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+/* ===== ITEM ===== */
+.history-item {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.history-thumbnail {
+  width: 180px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #222;
+  flex-shrink: 0;
+}
+
+/* ===== INFO ===== */
+.history-info {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+.history-title {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
+  max-width: 520px;
+  overflow: hidden;
+  
+  
+}
+
+/* ===== CHANNEL ===== */
+.history-channel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.history-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ===== HOVER EFFECT ===== */
+.history-item:hover .history-title {
+  color: #fff;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .history-page {
+    padding: 18px;
+  }
+
+  .history-thumbnail {
+    width: 160px;
+    height: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  .history-page {
+    margin-left: 0;
+    padding: 16px;
+  }
+
+  .history-page-grow {
+    margin-left: 0;
+  }
+
+  .history-item {
+    gap: 10px;
+  }
+
+  .history-thumbnail {
+    width: 140px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .history-item {
+    flex-direction: column;
+  }
+
+  .history-thumbnail {
+    width: 100%;
+    height: 200px;
+  }
+
+  .history-title {
+    max-width: 100%;
+  }
+}

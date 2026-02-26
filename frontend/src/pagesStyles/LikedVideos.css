@@ -1,0 +1,161 @@
+/* ===== Page Layout ===== */
+.liked-page {
+  padding: 20px;
+  min-height: 100vh;
+  /* background-color: #0f0f0f; */
+  /* color: #fff; */
+  margin-left: 240px !important;
+  transition: margin-left 0.3s ease;
+}
+
+/* Sidebar Closed */
+.liked-page-grow {
+  margin-left: 70px !important;
+}
+
+.liked-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.empty-text {
+  font-size: 16px;
+  color: #aaa;
+  margin-top: 40px;
+}
+
+/* ===== Grid ===== */
+.liked-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  width: 100%;
+}
+
+/* ===== Video Card ===== */
+.video-card {
+  text-decoration: none;
+  /* color: inherit; */
+  display: flex;
+  /* flex-direction: column; */
+  cursor: pointer;
+}
+
+.thumbnail-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* 🔥 IMPORTANT */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.duration {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* ===== Video Info ===== */
+.video-info {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  max-height: 40px;
+  overflow: hidden;
+  /* border: 1px solid black;
+  color: black !important; */
+
+}
+
+.channel {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.meta {
+  font-size: 12px;
+  color: #888;
+}
+
+/* ===== Hover Effect ===== */
+.video-card:hover .thumbnail {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* ===== Tablet ===== */
+@media (max-width: 1024px) {
+  .liked-page {
+    margin-left: 200px;
+  }
+
+  .liked-page-grow {
+    margin-left: 60px;
+  }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+  .liked-page,
+  .liked-page-grow {
+    margin-left: 0;
+    padding: 14px;
+  }
+
+  .liked-title {
+    font-size: 18px;
+  }
+
+  .liked-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .title {
+    font-size: 13px;
+  }
+}
+
+/* ===== Small Mobile ===== */
+@media (max-width: 480px) {
+  .liked-grid {
+    grid-template-columns: 1fr;
+  }
+}

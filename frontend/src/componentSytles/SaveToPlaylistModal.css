@@ -1,0 +1,119 @@
+
+/* 🔥 Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+}
+
+/* 🔥 Modal box */
+.modal-box {
+  width: 360px;
+  max-height: 75vh;
+  background: #212121;
+  border-radius: 12px;
+  padding: 18px 20px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  animation: scaleIn 0.18s ease-in-out;
+}
+
+/* 🔥 Title */
+.modal-box h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+/* 🔥 Playlist list */
+.playlist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Custom scrollbar */
+.playlist-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.playlist-list::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+/* 🔥 Playlist item */
+.playlist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 4px;
+  border-radius: 6px;
+}
+
+.playlist-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Checkbox style */
+.playlist-item input {
+  width: 16px;
+  height: 16px;
+  accent-color: #3ea6ff;
+  cursor: pointer;
+}
+
+/* 🔥 Create playlist button */
+.create-btn {
+  margin-top: 14px;
+  background: transparent;
+  color: #3ea6ff;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 4px;
+  border-radius: 6px;
+}
+
+.create-btn:hover {
+  background: rgba(62, 166, 255, 0.1);
+}
+
+/* 🔥 Close button */
+.close-btn {
+  margin-top: 14px;
+  align-self: flex-end;
+  background: transparent;
+  color: #aaa;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 16px;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* 🔥 Animation */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
