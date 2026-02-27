@@ -69,8 +69,8 @@ export const createVideo = asyncHandler(async (req, res) => {
     }
 
     const video = await Video.create({
-      videoFile: videoFile.url,
-      thumbnail: thumbnail?.url || "",
+      videoFile: videoFile.secure_url,
+      thumbnail: thumbnail?.secure_url || "",
       title,
       description,
       category,
@@ -202,7 +202,6 @@ export const deleteVideo = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, "Video Deleted Successfully"));
 });
-
 
 export const increaseViewCount = asyncHandler(async (req, res) => {
   const { id: videoId } = req.params;

@@ -30,119 +30,6 @@ const generateAccessAndRefreshTokens = async (userId) => {
   }
 };
 
-export const register = async (req, res) => {
-  try {
-    const { email, name, password } = req.body;
-    if (!email || !name || !password) {
-      return res.status(400).json({
-        success: false,
-        message: "Email , Name and Password are Mandatory",
-      });
-    }
-
-    if (password.length < 6) {
-      return res.status(400).json({
-        success: false,
-        message: "Password must be at least 6 characters",
-      });
-    }
-
-    const existingUser = await userModel.findOne({ email: email });
-
-    if (existingUser) {
-      return res.status(400).json({
-        success: false,
-        message: "Email Already Exist! Enter other email",
-      });
-    }
-
-    // User Avatar and coverImage
-
-    const avatarLocalPath = req.files?.avatar[0]?.path;
-    // console.log(req.files)
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;
-
-    if (!avatarLocalPath) {
-      throw new ApiError(400, "Avatar file is required");
-    }
-
-    const avatar = await uploadOnCloudinary(avatarLocalPath);
-    const coverImage = await uploadOnCloudinary(coverImageLocalPath);
-
-    if (!avatar) {
-      throw new ApiError(400, "Avatar file is required");
-    }
-
-    // password Hashing with bcrypt
-
-    const pwdEncrypt = await bcrypt.hash(password, 10);
-    const userData = await userModel.create({
-      ...req.body,
-      avatar: avatar.url,
-      coverImage: coverImage?.url || "",
-      password: pwdEncrypt,
-    });
-
-    // console.log(userData);
-
-    const userResponse = userData.toObject();
-    delete userResponse.password;
-
-    return res.status(201).json({
-      success: true,
-      message: "User Registered Successfully",
-      user: userResponse,
-    });
-  } catch (error) {
-    console.log("register  Error", error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
-
-// const createdUser = await User.findById(user._id).select(
-//   "-password -refreshToken"
-// )
-
-export const login = async (req, res) => {
-  try {
-    // const {email} = req.body;
-    const userEmail = await userModel.findOne({ email: req.body.email });
-    if (!userEmail) {
-      return res.status(400).json({
-        success: false,
-        message: "Email does not exist!",
-      });
-    } else {
-      console.log(userEmail);
-      const PwdMatch = await bcrypt.compare(
-        req.body.password,
-        userEmail.password,
-      );
-
-      if (PwdMatch !== true) {
-        return res.status(400).json({
-          success: false,
-          message: "Invalid Email or Password",
-        });
-      } else {
-        return res.status(200).json({
-          success: true,
-          message: "Login Successful",
-          body: userEmail,
-        });
-      }
-    }
-  } catch (error) {
-    console.log("Login Error", error);
-    return res.status(500).json({
-      success: false,
-      message: "internal server error",
-    });
-  }
-};
 
 export const registerUser = asyncHandler(async (req, res) => {
   // get user details from frontend
@@ -177,10 +64,10 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 
   const avatarLocalPath = req.files?.avatar[0]?.path;
-  console.log(req.files);
-  console.log("avattttaarr file : ", avatarLocalPath);
+  // console.log(req.files);
+  // console.log("avattttaarr file : ", avatarLocalPath);
   const coverImageLocalPath = req.files?.coverImage[0]?.path;
-  console.log(coverImageLocalPath);
+  // console.log(coverImageLocalPath);
 
   const avatar = await uploadOnCloudinary(avatarLocalPath);
   const coverImage = await uploadOnCloudinary(coverImageLocalPath);
@@ -190,8 +77,8 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   const user = await userModel.create({
     fullName,
-    avatar: avatar.url,
-    coverImage: coverImage?.url || "",
+    avatar: avatar.secure_url,
+    coverImage: coverImage?.secure_url || "",
     email,
     password,
     username: username.toLowerCase(),
@@ -370,7 +257,6 @@ export const changeCurrentPassword = asyncHandler(async (req, res) => {
 });
 
 export const getCurrentUser = asyncHandler(async (req, res) => {
-  // console.log(req.user);
   return res
     .status(200)
     .json(new ApiResponse(200, req.user, "Current user Fetched Successfully"));
