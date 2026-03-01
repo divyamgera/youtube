@@ -14,8 +14,7 @@ import { VideoInfo } from "./VideoInfo";
 import AvatarLoader from "./AvatarLoader";
 
 export const PlayVideo = () => {
-  // const { user: currentUser } = useAuth();
-  // console.log("PLAY VIDEO COMPO RENDERED");
+ 
   const { videoId } = useParams();
 
 
@@ -24,29 +23,6 @@ export const PlayVideo = () => {
   const [video, setVideo] = useState(null);
 
   const [loading, setLoading] = useState(true);
-
-  // const handleLike = async () => {
-  //   await likeVideo(videoId);
-
-  //   const updatedVideo = await getVideoById(videoId);
-  //   setVideo(updatedVideo.data.data);
-
-  //   setLiked(true);
-  //   setDisliked(false);
-  // };
-
-
-
-  // const handleDislike = async () => {
-  //   await dislikeVideo(videoId);
-
-  //   const updatedVideo = await getVideoById(videoId);
-  //   setVideo(updatedVideo.data.data);
-
-  //   setDisliked(true);
-  //   setLiked(false);
-  // };
-
 
   useEffect(() => {
     const loadVideo = async () => {
@@ -65,9 +41,7 @@ export const PlayVideo = () => {
         );
         
         setChannel(channelRes.data.data);
-        // setSubscribed(channelRes.data.data.isSubscribed);
-        // setSubscribersCount(channelRes.data.data.subscribersCount);
-        // console.log("channel res",channelRes);
+  
       } catch (error) {
         console.error("Error loading video", error);
       } finally {
@@ -96,28 +70,6 @@ export const PlayVideo = () => {
         {/* <h4>{video.description}</h4> */}
 
         <VideoInfo video={video} videoId={videoId} setVideo={setVideo} />
-
-        {/* <div className="play-video-info">
-          <p>{video.views} Views &bull; 2 days ago</p>
-          <div>
-            <span onClick={handleLike}>
-              <img src={like} alt="" className={liked ? "active" : ""} />
-              {video.likesCount}
-            </span>
-            <span onClick={handleDislike}>
-              <img src={dislike} alt="" className={disliked ? "active" : ""} />
-              {video.dislikesCount}
-            </span>
-            <span>
-              <img src={share} alt="" />
-              Share
-            </span>
-            <span>
-              <img src={save} alt="" />
-              Save
-            </span>
-          </div>
-        </div> */}
 
         <hr />
 

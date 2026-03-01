@@ -9,6 +9,8 @@ import "../pagesStyles/ChannelProfile.css";
 import { Sidebar } from "../components/Sidebar";
 import { getChannelPlaylists, getMyPlaylists } from "../utils/playlist";
 import { useAuth } from "../utils/AuthContext";
+import AvatarLoader from "../components/AvatarLoader";
+import { VideoCard } from "../components/VideoCard";
 
 const ChannelProfile = ({ sidebar }) => {
   const { username } = useParams();
@@ -38,6 +40,7 @@ const ChannelProfile = ({ sidebar }) => {
       const videoRes = await getUserChannelVideos(username);
       // console.log("Videos Response",videoRes)
       setVideos(videoRes.data.data);
+      // console.log(videoRes.data.data);
 
       const playlistRes = await getChannelPlaylists(username);
       setPlaylists(playlistRes.data.data);
@@ -50,10 +53,10 @@ const ChannelProfile = ({ sidebar }) => {
     const res = await subscribeChannel(channel._id);
     const status = res.data.data.subscribed;
     setSubscribed(status);
-    setSubCount((prev) => (status ? prev + 1 : prev - 1));
+    setSubCount((prev) => (status ? preva + 1 : prev - 1));
   };
 
-  if (!channel) return <h2>Loading channel...</h2>;
+  if (!channel) return <AvatarLoader />;
 
   return (
     <>
@@ -108,17 +111,10 @@ const ChannelProfile = ({ sidebar }) => {
         {activeTab === "videos" && (
           <div className="channel-videos">
             {videos.map((video) => (
-              <Link to={`/video/getVideo/${video._id}`} key={video._id}>
-                <div className="vid-card">
-                  <div className="thumbnail-box">
-                    <img src={video.thumbnail} alt="" />
-                    <p className="duration">{formatDuration(video.duration)}</p>
-                  </div>
-                  <h4>{video.title}</h4>
-                  <p>{video.views} views</p>
-                </div>
-              </Link>
+              <VideoCard key={video._id} video={video} variant="grid" />
             ))}
+
+  
           </div>
         )}
 

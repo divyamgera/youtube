@@ -312,27 +312,28 @@ export const getSubscriptionsFeed = asyncHandler(async (req, res) => {
 
 export const getUserChannelVideos = asyncHandler(async (req, res) => {
   const { username } = req.params;
-  // console.log(username)
+
   const user = await userModel.findOne({ username });
-  // console.log("USER", user)
 
   if (!user) {
     throw new ApiError(404, "Channel not found");
   }
 
-  const channelVideos = await Video.find({ owner: user?._id }).sort({
-    createdAt: -1,
-  });
+  const channelVideos = await Video.find({ owner: user._id })
+    .populate("owner", "username avatar")   // 🔥 IMPORTANT FIX
+    .sort({ createdAt: -1 });
 
   if (!channelVideos) {
     throw new ApiError(500, "Error while fetching channel videos");
   }
 
-  return res
-    .status(200)
-    .json(
-      new ApiResponse(200, channelVideos, "Channel Video Fetched Successfully"),
-    );
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      channelVideos,
+      "Channel Videos Fetched Successfully"
+    )
+  );
 });
 
 // export const searchVideos = asyncHandler(async (req, res) => {

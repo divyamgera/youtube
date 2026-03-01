@@ -1,29 +1,24 @@
- /* PAGE LAYOUT */
-.channel-page {
-  padding: 0;
-  /* background: #0f0f0f; */
-  /* color: #fff; */
-  min-height: 100vh;
+/* ============================= */
+/* CHANNEL PAGE WRAPPER */
+/* ============================= */
 
-  /* NEW */
-  width: calc(100% - 250px);
-  margin-left: 250px;
+.channel-page {
+  padding: 20px 30px;
+  flex: 1;
+  width: 100%;
   transition: all 0.25s ease;
 }
 
-/* jab sidebar collapse ho */
-.channel-page-grow {
-  width: calc(100% - 80px);
-  margin-left: 80px;
-}
-
-
+/* ============================= */
 /* COVER */
+/* ============================= */
+
 .channel-cover {
   width: 100%;
   height: 220px;
-  background: #222;
+  border-radius: 12px;
   overflow: hidden;
+  background: var(--card-bg);
 }
 
 .channel-cover img {
@@ -32,19 +27,23 @@
   object-fit: cover;
 }
 
+/* ============================= */
 /* HEADER */
+/* ============================= */
+
 .channel-header {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 20px 30px;
+  padding: 20px 0;
 }
 
 .channel-avatar {
-  width: 90px;
-  height: 90px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   object-fit: cover;
+  border: 3px solid var(--border-color);
 }
 
 .channel-info h2 {
@@ -54,104 +53,127 @@
 
 .channel-info p {
   font-size: 14px;
-  color: #aaa;
+  color: var(--text-color);
+  opacity: 0.6;
   margin-top: 4px;
 }
 
-/* SUBSCRIBE BUTTON (future ready) */
+/* ============================= */
+/* SUBSCRIBE BUTTON */
+/* ============================= */
+
 .subscribe {
   margin-left: auto;
-  background: red;
-  color: white;
-  padding: 10px 18px;
+  background: #ff0000;
+  color: #fff;
+  padding: 10px 20px;
   border-radius: 20px;
   border: none;
-  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.subscribe:hover {
+  opacity: 0.85;
 }
 
 .subscribed {
   margin-left: auto;
-  background: #303030;
-  color: #aaa;
-  padding: 10px 18px;
+  background: var(--card-bg);
+  color: var(--text-color);
+  padding: 10px 20px;
   border-radius: 20px;
-  border: none;
+  border: 1px solid var(--border-color);
+  opacity: 0.8;
 }
 
+/* ============================= */
 /* TABS */
+/* ============================= */
+
 .channel-tabs {
   display: flex;
   gap: 30px;
-  padding: 0 30px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .channel-tabs span {
   padding: 14px 0;
   cursor: pointer;
   font-size: 15px;
-  color: #aaa;
+  color: var(--text-color);
+  opacity: 0.6;
   position: relative;
+  transition: 0.2s ease;
+}
+
+.channel-tabs span:hover {
+  opacity: 1;
 }
 
 .channel-tabs span.active {
-  color: white;
+  opacity: 1;
   font-weight: 500;
 }
 
 .channel-tabs span.active::after {
   content: "";
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   width: 100%;
   height: 2px;
-  background: white;
+  background: var(--text-color);
 }
 
-/* GRID */
+/* ============================= */
+/* VIDEO GRID */
+/* ============================= */
+
 .channel-videos {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  gap: 22px;
+  padding-top: 25px;
 }
 
-/* LINK RESET */
 .channel-videos a {
   text-decoration: none;
   color: inherit;
 }
 
-/* CARD */
+/* ============================= */
+/* VIDEO CARD */
+/* ============================= */
+
 .vid-card {
-  /* background: #fff; */
   border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .vid-card:hover {
   transform: translateY(-4px);
 }
 
-/* THUMBNAIL CONTAINER */
+/* THUMBNAIL */
+
 .thumbnail-box {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;   /* 🔥 Perfect YouTube ratio */
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
   overflow: hidden;
 }
 
-/* IMAGE */
 .thumbnail-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
-/* DURATION (BOTTOM RIGHT PERFECT FIX) */
+/* DURATION */
+
 .duration {
   position: absolute;
   bottom: 8px;
@@ -165,44 +187,49 @@
 }
 
 /* TITLE */
+
 .vid-card h4 {
   font-size: 15px;
   font-weight: 600;
-  margin: 10px 8px 4px;
+  margin: 10px 6px 4px;
   line-height: 1.4;
 
   display: -webkit-box;
-  
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* VIEWS TEXT */
+/* VIEWS */
+
 .vid-card p {
   font-size: 13px;
-  color: #606060;
-  margin: 0 8px 10px;
+  color: var(--text-color);
+  opacity: 0.6;
+  margin: 0 6px 10px;
 }
 
-
-
-
-
+/* ============================= */
 /* PLAYLIST TAB */
+/* ============================= */
+
 .channel-playlists {
-  padding: 25px 30px;
+  padding-top: 25px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
-/* PLAYLIST CARD */
 .channel-playlist-card {
   text-decoration: none;
-  /* color: white; */
-  cursor: pointer;
+  color: inherit;
+  transition: transform 0.2s ease;
 }
 
-/* THUMB */
+.channel-playlist-card:hover {
+  transform: translateY(-4px);
+}
+
 .channel-playlist-thumb {
   position: relative;
 }
@@ -210,53 +237,83 @@
 .channel-playlist-thumb img {
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 10px;
+  border-radius: 12px;
   object-fit: cover;
 }
 
 .empty-thumb {
-  background: #222;
+  background: var(--card-bg);
   aspect-ratio: 16 / 9;
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #aaa;
+  opacity: 0.6;
 }
 
-/* VIDEO COUNT OVERLAY */
+/* PLAYLIST COUNT */
+
 .playlist-count {
   position: absolute;
   bottom: 6px;
   right: 6px;
   background: rgba(0, 0, 0, 0.8);
-  color: white;
+  color: #fff;
   padding: 4px 6px;
   font-size: 12px;
   border-radius: 4px;
 }
 
-/* INFO */
+/* PLAYLIST INFO */
+
 .channel-playlist-info {
   margin-top: 8px;
 }
 
 .channel-playlist-info h4 {
   font-size: 14px;
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 .channel-playlist-info p {
   font-size: 12px;
-  color: #aaa;
+  opacity: 0.6;
 }
 
+/* ============================= */
+/* ABOUT TAB */
+/* ============================= */
+
+.channel-about {
+  padding-top: 25px;
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+/* ============================= */
 /* RESPONSIVE */
+/* ============================= */
+
 @media (max-width: 768px) {
+  .channel-page {
+    padding: 15px;
+  }
+
   .channel-header {
     flex-direction: column;
     align-items: flex-start;
   }
 
- 
+  .channel-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .channel-tabs {
+    gap: 20px;
+  }
+
+  .channel-videos {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
 }

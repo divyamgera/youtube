@@ -1,107 +1,9 @@
-// import "../componentSytles/Navbar.css";
-// import menu_icon from "../assets/menu.png";
-// import logo from "../assets/logo.png";
-// import { Link } from "react-router-dom";
-// import search_icon from "../assets/search.png";
-// import upload_icon from "../assets/upload.png";
-// import more_icon from "../assets/more.png";
-// import notification_icon from "../assets/notification.png";
-// import { useAuth } from "../utils/AuthContext";
-// import UserMenu from "./UserMenu";
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import AvatarLoader from "./AvatarLoader";
-
-// export const Navbar = ({ setSidebar }) => {
-//   const { user, loading } = useAuth();
-//   const [search, setSearch] = useState("");
-
-//   const [showMenu, setShowMenu] = useState(false);
-//   const navigate = useNavigate();
-
-//   const handleSearch = (e) => {
-//     e.preventDefault();
-//     if (!search.trim()) return;
-//     navigate(`/search?q=${search}`);
-//   };
-
-//   useEffect(() => {
-//     if (!user) setShowMenu(false);
-//   }, [user]);
-
-//   // console.log("Avatar user", user?.data?.avatar)
-//   const username = user?.data?.username || "U";
-//   const avatar = user?.data?.avatar || null;
-//   return (
-//     <nav className="flex-div">
-//       <div className="nav-left flex-div">
-//         <img
-//           className="menu-icon"
-//           onClick={() => setSidebar((prev) => !prev)}
-//           src={menu_icon}
-//           alt="menu_icon"
-//         />
-//         <img className="logo" src={logo} alt="logo" />
-//       </div>
-
-//       <div className="nav-middle flex-div">
-//         <div className="search-box flex-div">
-//           <form onSubmit={handleSearch}>
-//           <input
-//             type="text"
-//             placeholder="Search"
-//             value={search}
-//             onChange={(e) => setSearch(e.target.value)}
-//           />
-//           </form>
-
-//           <img src={search_icon} alt="search" />
-
-//         </div>
-//       </div>
-
-//       <div className="nav-right flex-div">
-//         <Link to="/upload">
-//           {" "}
-//           <img src={upload_icon} alt="upload" />{" "}
-//         </Link>
-//         <img src={more_icon} alt="more" />
-//         <img src={notification_icon} alt="notify" />
-//         {/* AVATAR AREA */}
-//         {loading ? (
-//           <AvatarLoader />
-//         ) : (
-//           <div
-//             className={`user-avatar ${!user ? "signin" : ""}`}
-//             onClick={() => {
-//               if (!user) navigate("/login");
-//               else setShowMenu((prev) => !prev);
-//             }}
-//           >
-//             {user ? (
-//               avatar ? (
-//                 <img src={avatar} alt="user" />
-//               ) : (
-//                 <span>{username.charAt(0).toUpperCase()}</span>
-//               )
-//             ) : (
-//               "Sign in"
-//             )}
-//           </div>
-//         )}
-
-//         {user && showMenu && <UserMenu user={user} />}
-//       </div>
-//     </nav>
-//   );
-// };
-
 import "../componentSytles/Navbar.css";
 import logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
 import UserMenu from "./UserMenu";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AvatarLoader from "./AvatarLoader";
 
 /* ICONS */
@@ -114,8 +16,12 @@ export const Navbar = ({ setSidebar }) => {
   const { user, setUser, loading } = useAuth();
   const [search, setSearch] = useState("");
   const [showMenu, setShowMenu] = useState(false);
-  const navigate = useNavigate();
   const [listening, setListening] = useState(false);
+
+  // const [mobileSearch, setMobileSearch] = useState(false);
+
+  const navigate = useNavigate();
+  const recognitionRef = useRef(null);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -132,38 +38,37 @@ export const Navbar = ({ setSidebar }) => {
       return;
     }
 
-    const recognition = new SpeechRecognition();
+    if (!recognitionRef.current) {
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.lang = "en-US";
+      recognitionRef.current.interimResults = false;
 
-    recognition.lang = "en-US"; // ya "hi-IN"
-    recognition.interimResults = false;
+      recognitionRef.current.onresult = (event) => {
+        const text = event.results[0][0].transcript;
+        setSearch(text);
+        navigate(`/search?q=${text}`);
+        setListening(false);
+      };
 
-    recognition.start();
+      recognitionRef.current.onerror = () => {
+        setListening(false);
+      };
+
+      recognitionRef.current.onend = () => {
+        setListening(false);
+      };
+    }
+
+    recognitionRef.current.start();
     setListening(true);
-
-    recognition.onresult = (event) => {
-      const text = event.results[0][0].transcript;
-
-      setSearch(text); // input me fill
-      setListening(false);
-
-      navigate(`/search?q=${text}`); // 🔥 SAME FLOW
-    };
-
-    recognition.onerror = () => {
-      setListening(false);
-    };
-
-    recognition.onend = () => {
-      setListening(false);
-    };
   };
 
   useEffect(() => {
-    if (!user ) setShowMenu(false);
+    if (!user) setShowMenu(false);
   }, [user]);
 
   const username = user?.data?.username;
-  const avatar = user?.data?.avatar || null;
+  const avatar = user?.data?.avatar;
 
   return (
     <nav className="navbar">
@@ -196,7 +101,6 @@ export const Navbar = ({ setSidebar }) => {
           </button>
         </form>
 
-        {/* MIC */}
         <button
           type="button"
           className={`icon-btn mic-btn ${listening ? "active" : ""}`}
@@ -226,15 +130,18 @@ export const Navbar = ({ setSidebar }) => {
           <div
             className={`user-avatar ${!user ? "signin" : ""}`}
             onClick={() => {
-              if (!user || user.data==null) navigate("/login");
-              else setShowMenu((p) => !p);
+              if (!user?.data) {
+                navigate("/login");
+              } else {
+                setShowMenu((prev) => !prev);
+              }
             }}
           >
-            {user ? (
+            {user?.data ? (
               avatar ? (
-                <img src={avatar} alt="user" />
+                <img src={avatar} alt="user avatar" />
               ) : (
-                <Link to="/login"> Sign-In</Link> 
+                <span>{username?.charAt(0).toUpperCase()}</span>
               )
             ) : (
               "Sign in"
@@ -242,7 +149,9 @@ export const Navbar = ({ setSidebar }) => {
           </div>
         )}
 
-        {user && showMenu && <UserMenu user={user} setUser={setUser} />}
+        {user && showMenu && (
+          <UserMenu user={user} setUser={setUser} />
+        )}
       </div>
     </nav>
   );

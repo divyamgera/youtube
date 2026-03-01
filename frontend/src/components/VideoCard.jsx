@@ -1,40 +1,35 @@
-// import { Link } from "react-router-dom";
-// import "../componentSytles/VideoCard.css";
-// const VideoCard = ({ video }) => {
-//   const formatDuration = (seconds = 0) => {
-//     const mins = Math.floor(seconds / 60);
-//     const secs = Math.floor(seconds % 60);
-//     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
-//   };
-//   return (
-//     <Link to={`/video/getVideo/${video._id}`} className="video-cards">
-//       <div className="thumbnail-box">
-//         <img src={video.thumbnail} alt={video.title} className="thumbnail" />
-//         <span className="duration"> {formatDuration(video.duration)}</span>
-//       </div>
-//       <div className="video-info">
-//         <img src={video.owner?.avatar} alt="channel" className="avatar" />
-//         <div className="text">
-//           <h4 className="title">{video.title}</h4>
-//           <p className="channel">{video.owner?.username}</p>
-//           <p className="meta">
-//             {video.views} views • {video.createdAt?.slice(0, 10)}
-//           </p>
-//         </div>
-//       </div>
-//     </Link>
-//   );
-// };
-// export default VideoCard;
-
-
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../componentSytles/VideoCard.css";
+import { DeleteModal } from "../modal/DeleteVideoModel";
+import { deleteVideo } from "../utils/auth";
+import { toast } from "react-toastify";
+import { useAuth } from "../utils/AuthContext";
 
 export const VideoCard = ({ video, variant = "grid" }) => {
-  const [openMenu, setOpenMenu] = useState(false);
+  const {user} = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [deleteModal, setDeleteModal] = useState(false);
+   const [deleting, setDeleting] = useState(false);
   const menuRef = useRef();
+
+   const handleDelete = async () => {
+      try {
+        setDeleting(true);
+        await deleteVideo(selectedVideo?._id);
+        setVideos((prev) => prev.filter((v) => v._id !== selectedVideo._id));
+        toast.success("Video deleted successfully");
+        setDeleteModal(false);
+        setMenuOpen(null);
+        setSelectedVideo(null);
+      } catch (error) {
+        console.log("Error: ", error);
+        toast.error(error.response?.data?.message || "Something went wrong");
+      } finally {
+        setDeleting(false);
+      }
+    };
 
   const formatDuration = (sec) => {
     if (!sec) return "0:00";
@@ -56,7 +51,7 @@ export const VideoCard = ({ video, variant = "grid" }) => {
   useEffect(() => {
     const handler = (e) => {
       if (!menuRef.current?.contains(e.target)) {
-        setOpenMenu(false);
+        setMenuOpen(false);
       }
     };
     document.addEventListener("mousedown", handler);
@@ -64,34 +59,26 @@ export const VideoCard = ({ video, variant = "grid" }) => {
   }, []);
 
   return (
+    <>
+    
     <div className={`video-card ${variant}`}>
-
       {/* Thumbnail */}
       <Link to={`/video/getVideo/${video?._id}`} className="thumb-wrapper">
         <img src={video?.thumbnail} alt={video?.title} />
         <div className="overlay"></div>
-        <span className="duration">
-          {formatDuration(video?.duration)}
-        </span>
+        <span className="duration">{formatDuration(video?.duration)}</span>
       </Link>
 
       {/* Info */}
       <div className="video-info">
-
         {variant !== "compact" && (
-          <img
-            src={video?.owner?.avatar}
-            alt=""
-            className="channel-avatar"
-          />
+          <img src={video?.owner?.avatar} alt="D" className="channel-avatar" />
         )}
 
         <div className="text-content">
           <h4 className="title">{video?.title}</h4>
 
-          <p className="channel-name">
-            {video?.owner?.username}
-          </p>
+          <p className="channel-name">{video?.owner?.username}</p>
 
           <p className="meta">
             {video?.views} views • {timeAgo(video?.createdAt)}
@@ -99,26 +86,42 @@ export const VideoCard = ({ video, variant = "grid" }) => {
         </div>
 
         <div className="menu-container" ref={menuRef}>
-          <div
-            className="three-dots"
-            onClick={() => setOpenMenu(!openMenu)}
-          >
+          <div className="three-dots" onClick={() => setMenuOpen(!menuOpen)}>
             ⋮
           </div>
 
-          {openMenu && (
+          {menuOpen && (
             <div className="dropdown-menu">
               <p>▶ Play next</p>
               <p>➕ Add to playlist</p>
               <p>💾 Save to Watch later</p>
-                <p> Delete </p>
+              {user?.data?._id === video?.owner?._id && (
+                <p
+                  onClick={() => {
+                    setSelectedVideo(video);
+                    setDeleteModal(true);
+                    setMenuOpen(null);
+                  }}
+                >
+                  🗑 Delete
+                </p>
+              )}
               <p>🚫 Not interested</p>
               <p>📤 Share</p>
             </div>
           )}
         </div>
-
       </div>
     </div>
+
+           <DeleteModal
+                  isOpen={deleteModal}
+                  onClose={() => setDeleteModal(false)}
+                  onConfirm={handleDelete}
+                  loading={deleting}
+                  title="Delete Video"
+                  description="Are you sure you want to delete this video?"
+                />
+    </>
   );
 };

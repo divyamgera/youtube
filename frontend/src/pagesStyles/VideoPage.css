@@ -1,25 +1,10 @@
-/* .play-container {
-  padding-left: 11%;
-  padding-right: 2%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
 
-.play-large-container{
-  padding-left: 1%;
-}
- */
 
 
 /* Main Container */
 .play-container {
-  padding-left: 11%;
-  padding-right: 2%;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px;
+
 
   display: flex;
   justify-content: space-between;
@@ -29,10 +14,6 @@
   flex-wrap: nowrap;
 }
 
-/* When sidebar closed */
-.play-large-container {
-  padding-left: 2%;
-}
 
 /* ============================= */
 /* 🔥 RESPONSIVE BREAKPOINTS */

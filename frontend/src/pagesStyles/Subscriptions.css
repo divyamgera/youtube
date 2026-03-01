@@ -1,28 +1,86 @@
+/* ============================= */
+/* PAGE WRAPPER */
+/* ============================= */
+
 .subscriptions-page {
-  padding: 20px 30px;
-  /* background-color: #0f0f0f; */
-  min-height: 100vh;
-  /* color: #fff; */
-
-    /* Sidebar adjustment */
-  margin-left: 240px; /* sidebar open width */
-  transition: margin-left 0.3s ease;
+  flex: 1;
+  padding: 24px 32px;
+  width: 100%;
+  transition: 0.25s ease;
 }
 
-
-/* Sidebar closed state */
-.subscriptions-page-grow {
-  margin-left: 80px; /* collapsed sidebar width */
-}
+/* ============================= */
+/* TITLE */
+/* ============================= */
 
 .subscriptions-title {
   font-size: 22px;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
+
+/* ============================= */
+/* GRID */
+/* ============================= */
 
 .subscriptions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+/* ============================= */
+/* LOADER */
+/* ============================= */
+
+.subscriptions-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+/* ============================= */
+/* EMPTY STATE */
+/* ============================= */
+
+.subscriptions-empty {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.subscriptions-empty h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.subscriptions-empty p {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 1024px) {
+  .subscriptions-page {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .subscriptions-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .subscriptions-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .subscriptions-grid {
+    grid-template-columns: 1fr;
+  }
 }

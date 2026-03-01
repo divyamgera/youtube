@@ -21,100 +21,200 @@ const App = () => {
   const [sidebar, setSidebar] = useState(true);
 
   return (
-    <div>
+    <div className="app-layout">
       <Navbar setSidebar={setSidebar} />
 
-      <Routes>
-        <Route path="/" element={<Home sidebar={sidebar} />} />
-        <Route
-          path="/video/:categoryId/:videoId"
-          element={<VideoPage sidebar={sidebar} />}
-        />
-        <Route path="/login" element={<Login sidebar={sidebar} />} />
-        <Route path="/register" element={<Register sidebar={sidebar} />} />
-        <Route
-          path="/upload"
-          element={
-            <ProtectedRoute>
-              <Upload sidebar={sidebar} />
-            </ProtectedRoute>
-          }
-        />
+      <div className="layout-body">
+        {sidebar && (
+          <div className="sidebar-overlay" onClick={() => setSidebar(false)} />
+        )}
 
-        <Route
-          path={`/users/c/:username`}
-          element={
-            <ProtectedRoute>
-              <ChannelProfile sidebar={sidebar} />
-            </ProtectedRoute>
-          }
-        />
+        <Routes>
+          <Route path="/" element={<Home sidebar={sidebar} />} />
+          <Route
+            path="/video/:categoryId/:videoId"
+            element={<VideoPage sidebar={sidebar} />}
+          />
+          <Route path="/login" element={<Login sidebar={sidebar} />} />
+          <Route path="/register" element={<Register sidebar={sidebar} />} />
 
-        <Route
-          path="/updatechannel"
-          element={
-            <ProtectedRoute>
-              <UpdateChannel sidebar={sidebar} />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/upload"
+            element={
+              <ProtectedRoute>
+                <Upload sidebar={sidebar} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/updateProfile"
-          element={
-            <ProtectedRoute>
-              <UpdateUserProfile sidebar={sidebar} />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/users/c/:username"
+            element={
+              <ProtectedRoute>
+                <ChannelProfile sidebar={sidebar} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/subscriptions"
-          element={
-            <ProtectedRoute>
-              <Subscriptions sidebar={sidebar} />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/updatechannel"
+            element={
+              <ProtectedRoute>
+                <UpdateChannel sidebar={sidebar} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/watchhistory"
-          element={
-            <ProtectedRoute>
-              <WatchHistory sidebar={sidebar} />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/updateProfile"
+            element={
+              <ProtectedRoute>
+                <UpdateUserProfile sidebar={sidebar} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route path="/search" element={<SearchResults sidebar={sidebar} />} />
+          <Route
+            path="/subscriptions"
+            element={
+              <ProtectedRoute>
+                <Subscriptions sidebar={sidebar} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/myplaylists"
-          element={
-            <ProtectedRoute>
-              <MyPlaylists sidebar={sidebar} />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/watchhistory"
+            element={
+              <ProtectedRoute>
+                <WatchHistory sidebar={sidebar} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/playlist/:playlistId"
-          element={<PlaylistDetail sidebar={sidebar} />}
-        />
+          <Route path="/search" element={<SearchResults sidebar={sidebar} />} />
 
+          <Route
+            path="/myplaylists"
+            element={
+              <ProtectedRoute>
+                <MyPlaylists sidebar={sidebar} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/likedVideos"
-          element={
-            <ProtectedRoute>
-              <LikedVideos sidebar={sidebar} />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/playlist/:playlistId"
+            element={<PlaylistDetail sidebar={sidebar} />}
+          />
 
-      </Routes>
+          <Route
+            path="/likedVideos"
+            element={
+              <ProtectedRoute>
+                <LikedVideos sidebar={sidebar} />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </div>
     </div>
   );
+
+  // return (
+  //   <div>
+  //     <Navbar setSidebar={setSidebar} />
+
+  //     <Routes>
+  //       <Route path="/" element={<Home sidebar={sidebar} />} />
+  //       <Route
+  //         path="/video/:categoryId/:videoId"
+  //         element={<VideoPage sidebar={sidebar} />}
+  //       />
+  //       <Route path="/login" element={<Login sidebar={sidebar} />} />
+  //       <Route path="/register" element={<Register sidebar={sidebar} />} />
+  //       <Route
+  //         path="/upload"
+  //         element={
+  //           <ProtectedRoute>
+  //             <Upload sidebar={sidebar} />
+  //           </ProtectedRoute>
+  //         }
+  //       />
+
+  //       <Route
+  //         path={`/users/c/:username`}
+  //         element={
+  //           <ProtectedRoute>
+  //             <ChannelProfile sidebar={sidebar} />
+  //           </ProtectedRoute>
+  //         }
+  //       />
+
+  //       <Route
+  //         path="/updatechannel"
+  //         element={
+  //           <ProtectedRoute>
+  //             <UpdateChannel sidebar={sidebar} />
+  //           </ProtectedRoute>
+  //         }
+  //       />
+
+  //       <Route
+  //         path="/updateProfile"
+  //         element={
+  //           <ProtectedRoute>
+  //             <UpdateUserProfile sidebar={sidebar} />
+  //           </ProtectedRoute>
+  //         }
+  //       />
+
+  //       <Route
+  //         path="/subscriptions"
+  //         element={
+  //           <ProtectedRoute>
+  //             <Subscriptions sidebar={sidebar} />
+  //           </ProtectedRoute>
+  //         }
+  //       />
+
+  //       <Route
+  //         path="/watchhistory"
+  //         element={
+  //           <ProtectedRoute>
+  //             <WatchHistory sidebar={sidebar} />
+  //           </ProtectedRoute>
+  //         }
+  //       />
+
+  //       <Route path="/search" element={<SearchResults sidebar={sidebar} />} />
+
+  //       <Route
+  //         path="/myplaylists"
+  //         element={
+  //           <ProtectedRoute>
+  //             <MyPlaylists sidebar={sidebar} />
+  //           </ProtectedRoute>
+  //         }
+  //       />
+
+  //       <Route
+  //         path="/playlist/:playlistId"
+  //         element={<PlaylistDetail sidebar={sidebar} />}
+  //       />
+
+  //       <Route
+  //         path="/likedVideos"
+  //         element={
+  //           <ProtectedRoute>
+  //             <LikedVideos sidebar={sidebar} />
+  //           </ProtectedRoute>
+  //         }
+  //       />
+
+  //     </Routes>
+  //   </div>
+  // );
 };
 
 export default App;

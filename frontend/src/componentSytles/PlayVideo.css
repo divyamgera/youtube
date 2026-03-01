@@ -47,7 +47,7 @@
 
 .publisher {
   display: flex;
-  justify-content: space-between; /* avatar left, button right */
+  justify-content: space-between; 
   align-items: center;
   margin-top: 20px;
 }
@@ -81,14 +81,14 @@
 .subscribed-btn {
   padding: 10px 16px;
   border: none;
-  border-radius: 2px;
+  border-radius: 50px;
   font-weight: 500;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .subscribe-btn {
-  background-color: #cc0000; /* YouTube red */
+  background-color: #cc0000; 
   color: white;
 }
 

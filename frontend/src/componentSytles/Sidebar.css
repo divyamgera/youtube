@@ -1,53 +1,36 @@
 :root {
-  --sidebar-large: 240px;
-  --sidebar-small: 80px;
+  --sidebar-width: 240px;
 }
 
 /* =========================
-   SIDEBAR BASE
+   SIDEBAR BASE (OVERLAY)
 ========================= */
 .sidebar {
-  width: var(--sidebar-large);
-  height: calc(100vh - 56px);
   position: fixed;
   top: 56px;
   left: 0;
-
-  padding: 12px 0;
-  overflow-y: auto;
+  width: var(--sidebar-width);
+  height: calc(100vh - 56px);
 
   background-color: var(--bg-color);
   color: var(--text-color);
 
   border-right: 1px solid var(--border-color);
+  padding: 12px 0;
 
-  transition: transform 0.3s ease, width 0.3s ease;
-  z-index: 9999;
+  overflow-y: auto;
+
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+
+  z-index: 2000;
 }
 
 /* =========================
-   DESKTOP COLLAPSE
+   OPEN STATE
 ========================= */
-.small-sidebar {
-  width: var(--sidebar-small);
-}
-
-/* =========================
-   MOBILE BEHAVIOR
-========================= */
-@media (max-width: 900px) {
-
-  /* When sidebar is collapsed → hide completely */
-  .small-sidebar {
-    transform: translateX(-100%);
-    width: var(--sidebar-large);
-  }
-
-  /* When sidebar is open → show fully */
-  .sidebar:not(.small-sidebar) {
-    transform: translateX(0);
-    width: var(--sidebar-large);
-  }
+.sidebar.open {
+  transform: translateX(0);
 }
 
 /* =========================
@@ -56,9 +39,24 @@
 .sidebar::-webkit-scrollbar {
   width: 6px;
 }
+
 .sidebar::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: #888;
   border-radius: 10px;
+}
+
+/* =========================
+   SECTION
+========================= */
+.sidebar-section {
+  padding: 8px 12px;
+}
+
+.sidebar-section h4 {
+  font-size: 14px;
+  margin: 10px 12px;
+  color: var(--text-color);
+  opacity: 0.8;
 }
 
 /* =========================
@@ -68,16 +66,12 @@
   display: flex;
   align-items: center;
   gap: 18px;
-  padding: 15px 12px;
+  padding: 10px 12px;
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.2s ease;
   text-decoration: none;
   color: inherit;
-}
-
-.icon{
-  font-size: 25px;
 }
 
 .side-link:hover {
@@ -89,14 +83,16 @@
   font-weight: 600;
 }
 
-/* Hide text in collapsed mode (desktop only) */
-@media (min-width: 901px) {
-  .small-sidebar .side-link p,
-  .small-sidebar h4 {
-    display: none;
-  }
+.icon {
+  font-size: 22px;
+}
 
-  .small-sidebar .side-link {
-    justify-content: center;
+/* =========================
+   MOBILE TWEAK
+========================= */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 80%;
+    max-width: 300px;
   }
 }

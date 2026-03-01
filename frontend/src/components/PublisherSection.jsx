@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../utils/AuthContext";
 import { subscribeChannel } from "../utils/auth";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import "../componentSytles/PlayVideo.css";
 
 export const PublisherSection = ({video,channel}) => {
 
@@ -50,7 +51,7 @@ export const PublisherSection = ({video,channel}) => {
 
         {currentUser && video && !isOwnChannel && (
           <button
-            className={subscribed ? "subscribed-btn" : ""}
+            className={subscribed ? "subscribed-btn" : "subscribe-btn"}
             onClick={handleSubscribe}
           >
             {subscribed ? "Subscribed" : "Subscribe"}

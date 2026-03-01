@@ -21,7 +21,7 @@ import {
 
 export const Sidebar = ({ sidebar }) => {
   return (
-    <aside className={`sidebar ${sidebar ? "" : "small-sidebar"}`}>
+    <aside className={`sidebar ${sidebar ? "open" : ""}`}>
 
       {/* MAIN */}
       <div className="sidebar-section">

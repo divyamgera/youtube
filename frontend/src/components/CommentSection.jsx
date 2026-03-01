@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getCommentsByVideo } from "../utils/auth";
 import { CommentBox } from "./CommentBox";
 import CommentList from "./CommentList";
-import '../componentSytles/Comment.css'
+import '../componentSytles/Comment.css';
+import "../componentSytles/PlayVideo.css";
 
 export const CommentSection = ({videoId}) => {
   const [comments, setComments] = useState([]);

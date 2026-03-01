@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import {  useState } from "react";
 import like from "../assets/like.png";
 import dislike from "../assets/dislike.png";
 import share from "../assets/share.png";
@@ -6,7 +6,6 @@ import save from "../assets/save.png";
 import {
   dislikeVideo,
   getVideoById,
-  increaseView,
   likeVideo,
 } from "../utils/auth";
 import "../componentSytles/PlayVideo.css";
