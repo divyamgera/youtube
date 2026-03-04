@@ -13,7 +13,7 @@ const Subscriptions = ({ sidebar }) => {
     const loadVideos = async () => {
       try {
         const res = await subscriptionsFeed();
-        setVideos(res.data.data.videos);
+        setVideos(res.data.data.videos || {});
       } catch (error) {
         console.log(error);
       } finally {
@@ -34,7 +34,7 @@ const Subscriptions = ({ sidebar }) => {
           <div className="subscriptions-loader">
             <AvatarLoader />
           </div>
-        ) : videos.length === 0 ? (
+        ) : !Array.isArray(videos) || videos.length === 0 ? (
           <div className="subscriptions-empty">
             <h3>No videos from subscriptions</h3>
             <p>Subscribe to channels to see their latest uploads here.</p>
@@ -42,7 +42,7 @@ const Subscriptions = ({ sidebar }) => {
         ) : (
           <div className="subscriptions-grid">
             {videos.map((video) => (
-              <VideoCard key={video._id} video={video} variant="grid" />
+              <VideoCard key={video?._id} video={video} variant="grid" />
             ))}
           </div>
         )}

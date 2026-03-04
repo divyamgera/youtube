@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { fetchtAllVideo, deleteVideo } from "../utils/auth";
 import AvatarLoader from "./AvatarLoader";
 import { toast } from "react-toastify";
-import { VideoCard } from "./VideoCard";
+// import { VideoCard } from "./VideoCard";
 import { DeleteModal } from "../modal/DeleteVideoModel";
 import { useAuth } from "../utils/AuthContext";
 

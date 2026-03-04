@@ -4,6 +4,7 @@ import ApiError from "../utils/ApiError.js";
 import { Subscription } from "../models/subscription.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
+
 export const toggleSubscription = asyncHandler(async (req, res) => {
   const channelId = req.params.id;
   const subscriberId = req.user._id;
@@ -21,24 +22,33 @@ export const toggleSubscription = asyncHandler(async (req, res) => {
     subscriber: subscriberId,
   });
 
+  let subscribed;
+
   if (existingSubscription) {
     await Subscription.findByIdAndDelete(existingSubscription._id);
-
-    return res
-      .status(200)
-      .json(
-        new ApiResponse(200, { subscribed: false }, "Unsubscribed Successfully")
-      );
+    subscribed = false;
+  } else {
+    await Subscription.create({
+      channel: channelId,
+      subscriber: subscriberId,
+    });
+    subscribed = true;
   }
 
-  await Subscription.create({
+  const subscribersCount = await Subscription.countDocuments({
     channel: channelId,
-    subscriber: subscriberId,
   });
 
-  return res
-    .status(200)
-    .json(
-      new ApiResponse(200, { subscribed: true }, "Subscribed successfully")
-    );
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      {
+        subscribed,
+        subscribersCount,  
+      },
+      subscribed
+        ? "Subscribed successfully"
+        : "Unsubscribed successfully"
+    )
+  );
 });

@@ -11,13 +11,17 @@ import { HiMenu } from "react-icons/hi";
 import { FiSearch, FiUpload, FiMoreVertical } from "react-icons/fi";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { MdKeyboardVoice } from "react-icons/md";
+import useClickOutside from "../hooks/useClickOutside";
+import "../modal/ChangePasswordModal";
+import { ChangePassword } from "../modal/ChangePasswordModal";
 
 export const Navbar = ({ setSidebar }) => {
   const { user, setUser, loading } = useAuth();
   const [search, setSearch] = useState("");
   const [showMenu, setShowMenu] = useState(false);
   const [listening, setListening] = useState(false);
-
+  const [openChangePass, setOpenChangePass] = useState(false);
+  const menuRef = useRef(null);
   // const [mobileSearch, setMobileSearch] = useState(false);
 
   const navigate = useNavigate();
@@ -62,7 +66,9 @@ export const Navbar = ({ setSidebar }) => {
     recognitionRef.current.start();
     setListening(true);
   };
-
+  useClickOutside(menuRef, () => {
+    setShowMenu(false);
+  });
   useEffect(() => {
     if (!user) setShowMenu(false);
   }, [user]);
@@ -72,12 +78,13 @@ export const Navbar = ({ setSidebar }) => {
 
   return (
     <nav className="navbar">
-      {/* LEFT */}
+     
       <div className="nav-left">
         <button className="icon-btn" onClick={() => setSidebar((p) => !p)}>
           <HiMenu size={24} />
         </button>
 
+          
         <img
           src={logo}
           alt="logo"
@@ -86,7 +93,6 @@ export const Navbar = ({ setSidebar }) => {
         />
       </div>
 
-      {/* CENTER */}
       <div className="nav-center">
         <form className="search-wrapper" onSubmit={handleSearch}>
           <input
@@ -110,7 +116,6 @@ export const Navbar = ({ setSidebar }) => {
         </button>
       </div>
 
-      {/* RIGHT */}
       <div className="nav-right">
         <Link to="/upload" className="icon-btn">
           <FiUpload size={22} />
@@ -124,34 +129,46 @@ export const Navbar = ({ setSidebar }) => {
           <FiMoreVertical size={22} />
         </button>
 
-        {loading ? (
-          <AvatarLoader />
-        ) : (
-          <div
-            className={`user-avatar ${!user ? "signin" : ""}`}
-            onClick={() => {
-              if (!user?.data) {
-                navigate("/login");
-              } else {
-                setShowMenu((prev) => !prev);
-              }
-            }}
-          >
-            {user?.data ? (
-              avatar ? (
-                <img src={avatar} alt="user avatar" />
+        <div ref={menuRef} className="profile-wrapper">
+          {loading ? (
+            <AvatarLoader />
+          ) : (
+            <div
+              className={`user-avatar ${!user ? "signin" : ""}`}
+              onClick={() => {
+                if (!user?.data) {
+                  navigate("/login");
+                } else {
+                  setShowMenu((prev) => !prev);
+                }
+              }}
+            >
+              {user?.data ? (
+                avatar ? (
+                  <img src={avatar} alt="user avatar" />
+                ) : (
+                  <span>{username?.charAt(0).toUpperCase()}</span>
+                )
               ) : (
-                <span>{username?.charAt(0).toUpperCase()}</span>
-              )
-            ) : (
-              "Sign in"
-            )}
-          </div>
-        )}
+                "Sign in"
+              )}
+            </div>
+          )}
 
-        {user && showMenu && (
-          <UserMenu user={user} setUser={setUser} />
-        )}
+          {user && showMenu && (
+            <UserMenu
+              user={user}
+              setUser={setUser}
+              closeMenu={() => setShowMenu(false)}
+              openChangePassModal={() => setOpenChangePass(true)}
+            />
+          )}
+
+          <ChangePassword
+            open={openChangePass}
+            onClose={() => setOpenChangePass(false)}
+          />
+        </div>
       </div>
     </nav>
   );

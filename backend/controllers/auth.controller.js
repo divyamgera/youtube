@@ -30,7 +30,6 @@ const generateAccessAndRefreshTokens = async (userId) => {
   }
 };
 
-
 export const registerUser = asyncHandler(async (req, res) => {
   // get user details from frontend
   // validation - not empty,etc
@@ -424,8 +423,6 @@ export const getUserChannelProfile = asyncHandler(async (req, res) => {
     );
 });
 
-
-
 // export const getWatchHistory = asyncHandler(async (req, res) => {
 //   const user = await userModel.aggregate([
 //     {
@@ -482,7 +479,6 @@ export const getUserChannelProfile = asyncHandler(async (req, res) => {
 //       ),
 //     );
 // });
-
 
 export const getWatchHistory = asyncHandler(async (req, res) => {
   const user = await userModel.aggregate([

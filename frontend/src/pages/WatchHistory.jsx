@@ -10,20 +10,26 @@ const WatchHistory = ({ sidebar }) => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadHistory = async () => {
-      try {
-        const res = await watchHistory();
-        setHistory(res.data.data);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+ useEffect(() => {
+  const loadHistory = async () => {
+    try {
+      const res = await watchHistory();
 
-    loadHistory();
-  }, []);
+      const historyData =
+        res?.data?.data || [];
+
+      setHistory(Array.isArray(historyData) ? historyData : []);
+
+    } catch (err) {
+      console.log(err);
+      setHistory([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  loadHistory();
+}, []);
 
   // 🔥 GROUPING
   const todayHistory = history.filter((h) => isToday(h.watchedAt));
@@ -53,7 +59,7 @@ const WatchHistory = ({ sidebar }) => {
     <>
       <Sidebar sidebar={sidebar} />
 
-      <div className={`history-page ${sidebar ? "" : "history-page-grow"}`}>
+      <div className={`history-page`}>
         <h2 className="history-title">Watch history</h2>
 
         {loading && <AvatarLoader />}

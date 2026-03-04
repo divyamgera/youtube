@@ -1,6 +1,4 @@
-/* ============================= */
-/* CHANNEL PAGE WRAPPER */
-/* ============================= */
+
 
 .channel-page {
   padding: 20px 30px;
@@ -9,9 +7,6 @@
   transition: all 0.25s ease;
 }
 
-/* ============================= */
-/* COVER */
-/* ============================= */
 
 .channel-cover {
   width: 100%;
@@ -27,9 +22,6 @@
   object-fit: cover;
 }
 
-/* ============================= */
-/* HEADER */
-/* ============================= */
 
 .channel-header {
   display: flex;
@@ -38,7 +30,7 @@
   padding: 20px 0;
 }
 
-.channel-avatar {
+.channel-avatar-b {
   width: 96px;
   height: 96px;
   border-radius: 50%;
@@ -58,9 +50,6 @@
   margin-top: 4px;
 }
 
-/* ============================= */
-/* SUBSCRIBE BUTTON */
-/* ============================= */
 
 .subscribe {
   margin-left: auto;
@@ -87,9 +76,6 @@
   opacity: 0.8;
 }
 
-/* ============================= */
-/* TABS */
-/* ============================= */
 
 .channel-tabs {
   display: flex;
@@ -126,9 +112,6 @@
   background: var(--text-color);
 }
 
-/* ============================= */
-/* VIDEO GRID */
-/* ============================= */
 
 .channel-videos {
   display: grid;
@@ -142,9 +125,6 @@
   color: inherit;
 }
 
-/* ============================= */
-/* VIDEO CARD */
-/* ============================= */
 
 .vid-card {
   border-radius: 12px;
@@ -155,8 +135,6 @@
 .vid-card:hover {
   transform: translateY(-4px);
 }
-
-/* THUMBNAIL */
 
 .thumbnail-box {
   position: relative;
@@ -172,7 +150,6 @@
   object-fit: cover;
 }
 
-/* DURATION */
 
 .duration {
   position: absolute;
@@ -186,7 +163,6 @@
   font-weight: 500;
 }
 
-/* TITLE */
 
 .vid-card h4 {
   font-size: 15px;
@@ -200,7 +176,7 @@
   overflow: hidden;
 }
 
-/* VIEWS */
+
 
 .vid-card p {
   font-size: 13px;
@@ -208,10 +184,6 @@
   opacity: 0.6;
   margin: 0 6px 10px;
 }
-
-/* ============================= */
-/* PLAYLIST TAB */
-/* ============================= */
 
 .channel-playlists {
   padding-top: 25px;
@@ -251,7 +223,6 @@
   opacity: 0.6;
 }
 
-/* PLAYLIST COUNT */
 
 .playlist-count {
   position: absolute;
@@ -264,7 +235,6 @@
   border-radius: 4px;
 }
 
-/* PLAYLIST INFO */
 
 .channel-playlist-info {
   margin-top: 8px;
@@ -280,9 +250,6 @@
   opacity: 0.6;
 }
 
-/* ============================= */
-/* ABOUT TAB */
-/* ============================= */
 
 .channel-about {
   padding-top: 25px;
@@ -290,9 +257,6 @@
   opacity: 0.8;
 }
 
-/* ============================= */
-/* RESPONSIVE */
-/* ============================= */
 
 @media (max-width: 768px) {
   .channel-page {
@@ -304,7 +268,7 @@
     align-items: flex-start;
   }
 
-  .channel-avatar {
+  .channel-avatar-b {
     width: 80px;
     height: 80px;
   }

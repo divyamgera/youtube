@@ -5,13 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../utils/ThemeContext";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
-import { ChangePassword } from "../modal/ChangePasswordModal";
-const UserMenu = ({ user , setUser }) => {
+// import { ChangePassword } from "../modal/ChangePasswordModal";
+const UserMenu = ({ user, setUser, closeMenu, openChangePassModal }) => {
   const navigate = useNavigate();
 
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-  const [openChangePass, setOpenChangePass] = useState(false);
+  // const [openChangePass, setOpenChangePass] = useState(false);
   // console.log("user", user);
   const username = user?.data?.username;
 
@@ -22,7 +22,7 @@ const UserMenu = ({ user , setUser }) => {
   const handleLogout = async () => {
     try {
       await logoutUser();
-      
+
       toast.info("Logged Out Successfully");
       setUser(null);
       navigate("/login");
@@ -62,11 +62,16 @@ const UserMenu = ({ user , setUser }) => {
               </li>
               <li className="menu-item">🎨 Customization</li>
               <Link to="/updateprofile">
-                {" "}
-                <li className="menu-item">👤 Update Profile </li>{" "}
+                <li className="menu-item">👤 Update Profile </li>
               </Link>
               <li className="menu-item">⚙️ Settings</li>
-              <li className="menu-item" onClick={() => setOpenChangePass(true)}>
+              <li
+                className="menu-item"
+                onClick={() => {
+                  closeMenu();
+                  openChangePassModal();
+                }}
+              >
                 🔐 Change Password
               </li>
             </ul>
@@ -80,10 +85,10 @@ const UserMenu = ({ user , setUser }) => {
         }
       </div>
 
-      <ChangePassword
+      {/* <ChangePassword
         open={openChangePass}
         onClose={() => setOpenChangePass(false)}
-      />
+      /> */}
     </>
   );
 };

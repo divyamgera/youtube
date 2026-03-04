@@ -71,7 +71,7 @@ const PlaylistDetail = ({ sidebar }) => {
       <Sidebar sidebar={sidebar} />
 
       <div
-        className={`playlist-detail ${sidebar ? "" : "playlist-detail-grow"}`}
+        className={`playlist-detail`}
       >
         {/* HEADER */}
         <div className="playlist-header">

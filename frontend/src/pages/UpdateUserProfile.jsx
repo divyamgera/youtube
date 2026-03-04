@@ -43,7 +43,7 @@ const UpdateUserProfile = ({ sidebar }) => {
     <>
       <Sidebar sidebar={sidebar} />
 
-      <div className={`profile-container ${sidebar ? "": "profile-container-grow"} `}>
+      <div className={`profile-container`}>
         <h2>Edit Profile</h2>
 
         {/* COVER */}

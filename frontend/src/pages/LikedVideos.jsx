@@ -1,10 +1,9 @@
-import React from "react";
-// import VideoCard from "../components/VideoCard";
+
 import "../pagesStyles/LikedVideos.css";
 import { Sidebar } from "../components/Sidebar";
 import { useState } from "react";
 import { useEffect } from "react";
-import axios from "axios";
+
 import { likedVideos } from "../utils/auth";
 import AvatarLoader from "../components/AvatarLoader";
 import { VideoCard } from "../components/VideoCard";
@@ -33,7 +32,7 @@ const LikedVideos = ({ sidebar }) => {
     <>
       <Sidebar sidebar={sidebar} />
 
-      <div className={`liked-page ${sidebar ? "" : "liked-page-grow"}`}>
+      <div className={`liked-page`}>
         <h2 className="liked-title">Liked Videos</h2>
 
         {loading ? (

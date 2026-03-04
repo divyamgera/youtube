@@ -1,6 +1,4 @@
-/* =========================
-   NAVBAR BASE
-========================= */
+
 .navbar {
   height: 56px;
   padding: 0 16px;
@@ -14,9 +12,6 @@
   z-index: 1000;
 }
 
-/* =========================
-   LEFT
-========================= */
 .nav-left {
   display: flex;
   align-items: center;
@@ -29,9 +24,6 @@
   cursor: pointer;
 }
 
-/* =========================
-   ICON BUTTON
-========================= */
 .icon-btn {
   width: 40px;
   height: 40px;
@@ -51,9 +43,7 @@
   background: var(--hover-bg);
 }
 
-/* =========================
-   CENTER
-========================= */
+
 .nav-center {
   flex: 1;
   display: flex;
@@ -63,7 +53,6 @@
   gap: 12px;
 }
 
-/* SEARCH WRAPPER */
 .search-wrapper {
   display: flex;
   align-items: center;
@@ -86,7 +75,6 @@
   background: var(--nav-bg);
 }
 
-/* INPUT */
 .search-wrapper input {
   flex: 1;
   padding: 0 16px;
@@ -106,7 +94,6 @@
   height: 100%;
   border: none;
   border-left: 1px solid var(--border-color);
-  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -128,9 +115,6 @@
   animation: pulse 1s infinite;
 }
 
-/* =========================
-   RIGHT
-========================= */
 .nav-right {
   display: flex;
   align-items: center;
@@ -138,9 +122,6 @@
   flex-shrink: 0;
 }
 
-/* =========================
-   AVATAR
-========================= */
 .user-avatar {
   width: 32px;
   height: 32px;
@@ -186,9 +167,6 @@
     max-width: 260px;
   }
 
-  .mic-btn {
-    display: none;
-  }
 
   /* hide notification & more */
   .nav-right .icon-btn:nth-child(2),
@@ -200,6 +178,7 @@
 @media (max-width: 480px) {
   .nav-center {
     justify-content: flex-end;
+    gap: 4px;
   }
 
   .search-wrapper {
@@ -209,6 +188,11 @@
   .search-wrapper input {
     font-size: 13px;
     padding: 0 10px;
+   
+  }
+
+  .nav-left{
+    gap: 4px;
   }
 
   .search-btn {

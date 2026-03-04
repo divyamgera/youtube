@@ -9,13 +9,13 @@ import { DeletePlaylistModal } from "../modal/DeletePlaylistModal";
 import AvatarLoader from "../components/AvatarLoader";
 
 const MyPlaylists = ({ sidebar }) => {
-  const [playlists, setPlaylists] = useState([]); // user ki saari playlists store hoti hain
+  const [playlists, setPlaylists] = useState([]); 
   const [loading, setLoading] = useState(true);
-  const [openCreate, setOpenCreate] = useState(false); // create playlist modal open/close karne ke liye
+  const [openCreate, setOpenCreate] = useState(false); 
 
-  const [menuOpen, setMenuOpen] = useState(null); //
-  const [deleteModal, setDeleteModal] = useState(false); //
-  const [selectedPlaylist, setSelectedPlaylist] = useState(null); //
+  const [menuOpen, setMenuOpen] = useState(null); 
+  const [deleteModal, setDeleteModal] = useState(false); 
+  const [selectedPlaylist, setSelectedPlaylist] = useState(null); 
 
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ const MyPlaylists = ({ sidebar }) => {
     <>
       <Sidebar sidebar={sidebar} />
 
-      <div className={`playlist-page ${sidebar ? "" : "playlist-page-grow"}`}>
+      <div className={`playlist-page`}>
         <h2 className="playlist-title">My Playlists</h2>
 
         {loading && <AvatarLoader/>}
@@ -118,28 +118,7 @@ const MyPlaylists = ({ sidebar }) => {
         </div>
       </div>
 
-      {/* DELETE MODAL */}
-      {/* {deleteModal && (
-        <div className="delete-modal-overlay">
-          <div className="delete-modal">
-            <h3>Delete Playlist?</h3>
-            <p>Are you sure you want to delete this playlist?</p>
-
-            <div className="delete-actions">
-              <button
-                className="cancel-btn"
-                onClick={() => setDeleteModal(false)}
-              >
-                Cancel
-              </button>
-              <button className="delete-btn" onClick={handleDelete}>
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
-
+    
       <DeletePlaylistModal
         open={deleteModal}
         onClose={() => setDeleteModal(false)}
