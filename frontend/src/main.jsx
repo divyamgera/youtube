@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "./utils/ThemeContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+ 
     
       <BrowserRouter>
       <AuthProvider>
@@ -27,5 +27,5 @@ createRoot(document.getElementById("root")).render(
         </AuthProvider>
       </BrowserRouter>
     
-  </StrictMode>,
+ 
 );

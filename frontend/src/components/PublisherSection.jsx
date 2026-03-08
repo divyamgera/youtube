@@ -13,36 +13,32 @@ export const PublisherSection = ({ video, channel }) => {
     video &&
     String(currentUser?.data?._id) === String(video.owner._id);
 
-  const [subscribed, setSubscribed] = useState(
-    channel?.isSubscribed || false
-  );
-  const [subscribersCount, setSubscribersCount] = useState(
-    channel?.subscribersCount || 0
-  );
+  const [subscribed, setSubscribed] = useState(false);
+  const [subscribersCount, setSubscribersCount] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setSubscribed(channel?.isSubscribed || false);
-    setSubscribersCount(channel?.subscribersCount || 0);
+    if (channel) {
+      setSubscribed(channel.isSubscribed || false);
+      setSubscribersCount(channel.subscribersCount || 0);
+    }
   }, [channel]);
 
   const handleSubscribe = async () => {
     if (!currentUser) {
-      toast.info("Please Login to Subscribe");
+      toast.info("Please login to subscribe");
       return;
     }
 
     if (loading) return;
 
-    const previousSubscribed = subscribed;
-    const previousCount = subscribersCount;
-
-    const optimisticSubscribed = !previousSubscribed;
-
-    setSubscribed(optimisticSubscribed);
-    setSubscribersCount((prev) =>
-      optimisticSubscribed ? prev + 1 : prev - 1
-    );
+    // Confirm before unsubscribe
+    if (subscribed) {
+      const confirm = window.confirm(
+        "Do you really want to unsubscribe?"
+      );
+      if (!confirm) return;
+    }
 
     try {
       setLoading(true);
@@ -57,12 +53,13 @@ export const PublisherSection = ({ video, channel }) => {
       setSubscribed(backendSubscribed);
       setSubscribersCount(backendCount);
 
+      toast.success(
+        backendSubscribed
+          ? "Subscribed successfully"
+          : "Unsubscribed successfully"
+      );
     } catch (error) {
       console.log("SUBSCRIBE ERROR:", error);
-
-      setSubscribed(previousSubscribed);
-      setSubscribersCount(previousCount);
-
       toast.error("Something went wrong");
     } finally {
       setLoading(false);
@@ -76,6 +73,7 @@ export const PublisherSection = ({ video, channel }) => {
         className="publisher-info"
       >
         <img src={video.owner?.avatar} alt="avatar" />
+
         <div>
           <p>{video.owner?.username}</p>
           <span>{subscribersCount} Subscribers</span>

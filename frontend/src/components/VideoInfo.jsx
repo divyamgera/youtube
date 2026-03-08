@@ -126,8 +126,8 @@ export const VideoInfo = ({ video, setVideo, videoId }) => {
             {video.dislikesCount}
           </span>
 
-          <span>
-            <img src={share} alt="share" onClick={()=> setShowShare(true)}  />
+          <span onClick={()=> setShowShare(true)}>
+            <img src={share} alt="share"   />
             Share
           </span>
 

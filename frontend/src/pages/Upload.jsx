@@ -4,6 +4,8 @@ import axios from "axios";
 import "../pagesStyles/Upload.css";
 import { Sidebar } from "../components/Sidebar";
 import { uploadVideo } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Upload = ({ sidebar }) => {
   const [title, setTitle] = useState("");
@@ -14,6 +16,8 @@ const Upload = ({ sidebar }) => {
   const [thumbnail, setThumbnail] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,8 +38,9 @@ const Upload = ({ sidebar }) => {
       setLoading(true);
       const res = await uploadVideo(formData);
 
+      toast.success("Video Uploaded Successfully!")
       setMessage("✅ Video Uploaded Successfully!");
-
+      navigate("/");
       setTitle("");
       setDescription("");
       setCategory("");

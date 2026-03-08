@@ -33,7 +33,7 @@
 
 .video-card {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.2s ease;

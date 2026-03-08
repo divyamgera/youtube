@@ -1,144 +1,304 @@
 .play-video {
   flex-basis: 69%;
-
 }
+
+/* ================= VIDEO PLAYER ================= */
 
 .play-video video {
   width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  background: black;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
+/* ================= VIDEO TITLE ================= */
+
 .play-video h3 {
-  margin-top: 10px;
+  margin-top: 12px;
   font-weight: 600;
   font-size: 22px;
-  /* color: #000; */
+  color: var(--text-color);
 }
+
+/* ================= LIKE ACTIVE ================= */
+
 .active {
-  filter: invert(32%) sepia(98%) saturate(600%);
+  filter: invert(30%) sepia(95%) saturate(800%) hue-rotate(200deg);
 }
+
+/* ================= VIDEO INFO BAR ================= */
 
 .play-video-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 14px;
-  color: #5a5a5a;
+  color: #606060;
 }
 
-.play-video-info img {
-  width: 20px;
-  margin-right: 8px;
+/* RIGHT SIDE BUTTON GROUP */
+
+.play-video-info div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
+
+/* BUTTON STYLE */
 
 .play-video-info span {
   display: inline-flex;
   align-items: center;
-  margin-left: 15px;
+  padding: 7px 14px;
+  border-radius: 30px;
+  background: var(--hover-bg);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  position: relative;
 }
+
+/* ICON */
+
+.play-video-info img {
+  width: 20px;
+  margin-right: 6px;
+  transition: transform 0.2s ease;
+}
+
+/* HOVER EFFECT */
+
+.play-video-info span:hover {
+  background: #e5e5e5;
+  transform: translateY(-1px);
+}
+
+body.dark .play-video-info span:hover {
+  background: #303030;
+}
+
+/* ICON HOVER POP */
+
+.play-video-info span:hover img {
+  transform: scale(1.15);
+}
+
+/* LIKE BUTTON COLOR */
+
+.play-video-info span:nth-child(1):hover {
+  background: #e8f0fe;
+}
+
+body.dark .play-video-info span:nth-child(1):hover {
+  background: #1a2a40;
+}
+
+/* DISLIKE BUTTON */
+
+.play-video-info span:nth-child(2):hover {
+  background: #ffecec;
+}
+
+body.dark .play-video-info span:nth-child(2):hover {
+  background: #402020;
+}
+
+/* SHARE BUTTON */
+
+.play-video-info span:nth-child(3):hover {
+  background: #e8f3ff;
+}
+
+body.dark .play-video-info span:nth-child(3):hover {
+  background: #1a2a40;
+}
+
+/* SAVE BUTTON */
+
+.play-video-info span:nth-child(4):hover {
+  background: #f5f5f5;
+}
+
+body.dark .play-video-info span:nth-child(4):hover {
+  background: #333;
+}
+
+/* ================= HR ================= */
 
 .play-video hr {
   border: 0;
   height: 1px;
-  background: #ccc;
-  margin: 10px 0;
+  background: var(--border-color);
+  margin: 14px 0;
 }
+
+/* ================= PUBLISHER SECTION ================= */
 
 .publisher {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   margin-top: 20px;
 }
+
+/* CHANNEL INFO */
 
 .publisher-info {
   display: flex;
   align-items: center;
   text-decoration: none;
-  /* color: #000; */
+  transition: transform 0.25s ease;
 }
 
-.publisher-info img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 15px;
+.publisher-info:hover {
+  transform: translateY(-2px);
 }
+
+/* AVATAR */
+
+.publisher-info img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 14px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.publisher-info:hover img {
+  border-color: #ff0000;
+  transform: scale(1.06);
+}
+
+/* CHANNEL TEXT */
 
 .publisher-info div p {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   margin: 0;
 }
 
 .publisher-info div span {
-  font-size: 14px;
+  font-size: 13px;
   color: #606060;
+  margin-top: 2px;
+  display: block;
 }
+
+/* ================= SUBSCRIBE BUTTON ================= */
 
 .subscribe-btn,
 .subscribed-btn {
-  padding: 10px 16px;
+  padding: 9px 18px;
   border: none;
   border-radius: 50px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
+  transition: all 0.25s ease;
 }
 
 .subscribe-btn {
-  background-color: #cc0000; 
+  background: #ff0000;
   color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.subscribe-btn:hover {
+  background: #cc0000;
+  transform: translateY(-1px);
 }
 
 .subscribed-btn {
-  background-color: #e0e0e0;
-  color: #606060;
+  background: var(--hover-bg);
+  color: var(--text-color);
 }
 
+.subscribed-btn:hover {
+  background: #e5e5e5;
+}
 
+body.dark .subscribed-btn:hover {
+  background: #333;
+}
+
+/* ================= DESCRIPTION ================= */
 
 .vid-description {
   padding-left: 55px;
-  margin: 15px 0;
+  margin: 18px 0;
+  background: var(--card-bg);
+  padding: 15px;
+  border-radius: 10px;
+  transition: background 0.25s ease;
+}
+
+.vid-description:hover {
+  background: var(--hover-bg);
 }
 
 .vid-description p {
   font-size: 14px;
   margin-bottom: 5px;
-  color: #5a5a5a;
+  color: #606060;
 }
 
 .vid-description h4 {
   font-size: 14px;
-  color: #5a5a5a;
+  color: #606060;
   margin-top: 15px;
 }
+
+
+/* SHOW MORE BUTTON */
+
+.show-more-btn{
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: 14px;
+  display: inline-block;
+  margin-top: 6px;
+  transition: opacity 0.2s ease;
+}
+
+.show-more-btn:hover{
+  opacity: 0.7;
+  text-decoration: underline;
+}
+
+
+/* ================= COMMENTS ================= */
 
 .comment {
   display: flex;
   align-items: flex-start;
-  margin: 20px 0;
+  margin: 22px 0;
 }
 
 .comment img {
-  width: 35px;
+  width: 36px;
   border-radius: 50%;
-  margin-right: 15px;
+  margin-right: 14px;
 }
 
 .comment h3 {
   font-size: 14px;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .comment h3 span {
   font-size: 12px;
-  color: #5a5a5a;
+  color: #606060;
   font-weight: 500;
   margin-left: 8px;
 }
+
+/* COMMENT ACTION */
 
 .comment-action {
   display: flex;
@@ -150,11 +310,20 @@
 .comment-action img {
   border-radius: 0;
   width: 20px;
-  margin-right: 5px;
+  margin-right: 6px;
+  transition: transform 0.2s ease;
+}
+
+.comment-action img:hover {
+  transform: scale(1.2);
 }
 
 .comment-action span {
   margin-right: 20px;
-  color: #5a5a5a;
+  color: #606060;
+  cursor: pointer;
 }
 
+.comment-action span:hover {
+  text-decoration: underline;
+}

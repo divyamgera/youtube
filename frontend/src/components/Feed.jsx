@@ -42,6 +42,19 @@ export const Feed = () => {
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
+  
+  const timeAgo = (date) => {
+    const now = new Date();
+    const past = new Date(date);
+    const diff = Math.floor((now - past) / (1000 * 60 * 60 * 24));
+
+    if (diff < 1) return "Today";
+    if (diff < 7) return `${diff} days ago`;
+    if (diff < 30) return `${Math.floor(diff / 7)} weeks ago`;
+    return `${Math.floor(diff / 30)} months ago`;
+  };
+
+
   useEffect(() => {
     const loadVideos = async () => {
       try {
@@ -90,8 +103,8 @@ export const Feed = () => {
                   <h3 className="yt-title">{video.title}</h3>
                   <p className="yt-channel">{video.owner?.username}</p>
                   <p className="yt-meta">
-                    {video.views || 0} views •{" "}
-                    {new Date(video.createdAt).toDateString()}
+                    {video.views || 0} views • 
+                    {" "+timeAgo(video?.createdAt)}
                   </p>
                 </div>
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../componentSytles/PlayVideo.css";
 
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   getUserChannelProfile,
   getVideoById,
@@ -14,20 +14,21 @@ import { VideoInfo } from "./VideoInfo";
 import AvatarLoader from "./AvatarLoader";
 
 export const PlayVideo = () => {
- 
   const { videoId } = useParams();
-
 
   const [channel, setChannel] = useState(null);
 
   const [video, setVideo] = useState(null);
 
   const [loading, setLoading] = useState(true);
+  const [showMore, setShowMore] = useState(false);
+
+  const DESCRIPTION_LIMIT = 180;
 
   useEffect(() => {
     const loadVideo = async () => {
       try {
-        setLoading(true)
+        setLoading(true);
         const videoRes = await getVideoById(videoId);
         const videoData = videoRes.data.data;
         // console.log("Play video rsponse",videoData)
@@ -39,9 +40,8 @@ export const PlayVideo = () => {
         const channelRes = await getUserChannelProfile(
           videoData?.owner?.username,
         );
-        
+
         setChannel(channelRes.data.data);
-  
       } catch (error) {
         console.error("Error loading video", error);
       } finally {
@@ -58,13 +58,19 @@ export const PlayVideo = () => {
     }
   }, [videoId]);
 
-  if (loading) return <AvatarLoader/>
+  if (loading) return <AvatarLoader />;
   if (!video) return <h2> Video not found </h2>;
 
   return (
     <>
       <div className="play-video">
-        <video className="video-stream" src={video.videoFile} controls autoPlay muted></video>
+        <video
+          className="video-stream"
+          src={video.videoFile}
+          controls
+          autoPlay
+          muted
+        ></video>
 
         <h3>{video.title}</h3>
         {/* <h4>{video.description}</h4> */}
@@ -76,8 +82,21 @@ export const PlayVideo = () => {
         <PublisherSection video={video} channel={channel} />
 
         <div className="vid-description">
-          <p>{video.description}</p>
-         
+          <p>
+            {showMore
+              ? video.description
+              : video.description?.slice(0, DESCRIPTION_LIMIT)}
+          </p>
+
+          {video.description?.length > DESCRIPTION_LIMIT && (
+            <span
+              className="show-more-btn"
+              onClick={() => setShowMore(!showMore)}
+            >
+              {showMore ? "Show less" : "Show more"}
+            </span>
+          )}
+
           <hr />
 
           <CommentSection videoId={videoId} />

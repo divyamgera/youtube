@@ -38,14 +38,14 @@ const ChannelProfile = ({ sidebar }) => {
         getChannelPlaylists(username),
       ]);
 
-      const profile = profileRes.data.data;
+      const profile = profileRes?.data?.data;
 
       setChannel(profile);
-      setSubscribed(profile.isSubscribed);
-      setSubCount(profile.subscribersCount);
+      setSubscribed(profile.isSubscribed || false);
+      setSubCount(profile.subscribersCount || 0);
 
-      setVideos(videoRes.data.data || []);
-      setPlaylists(playlistRes.data.data || []);
+      setVideos(videoRes?.data?.data || []);
+      setPlaylists(playlistRes?.data?.data || []);
     } catch (err) {
       console.error("Channel load error:", err);
     } finally {
@@ -58,31 +58,37 @@ const ChannelProfile = ({ sidebar }) => {
   }, [loadChannel]);
 
   const handleSubscribe = async () => {
-    if (!channel || subLoading) return;
+  if (!channel || subLoading) return;
 
-    try {
-      setSubLoading(true);
+  // unsubscribe confirmation
+  if (subscribed) {
+    const confirm = window.confirm(
+      "Do you really want to unsubscribe from this channel?"
+    );
 
-      const optimisticState = !subscribed;
-      setSubscribed(optimisticState);
-      setSubCount((prev) => prev + (optimisticState ? 1 : -1));
+    if (!confirm) return;
+  }
 
-      const res = await subscribeChannel(channel._id);
-      const serverStatus = res.data.data.subscribed;
+  try {
+    setSubLoading(true);
 
-      setSubscribed(serverStatus);
-      setSubCount((prev) =>
-        serverStatus === optimisticState ? prev : prev + (serverStatus ? 1 : -1)
-      );
-    } catch (err) {
-      console.error("Subscribe error:", err);
+    const res = await subscribeChannel(channel._id);
 
-      setSubscribed((prev) => !prev);
-      setSubCount((prev) => prev + (subscribed ? -1 : 1));
-    } finally {
-      setSubLoading(false);
-    }
-  };
+    const {
+      subscribed: backendSubscribed,
+      subscribersCount: backendCount,
+    } = res.data.data;
+
+    setSubscribed(backendSubscribed);
+    setSubCount(backendCount);
+  } catch (err) {
+    console.error("Subscribe error:", err);
+  } finally {
+    setSubLoading(false);
+  }
+};
+
+
 
   if (loading) return <AvatarLoader />;
   if (!channel) return null;
@@ -113,7 +119,7 @@ const ChannelProfile = ({ sidebar }) => {
               disabled={subLoading}
             >
               {subLoading
-                ? "Please wait..."
+                ? "Processing..."
                 : subscribed
                 ? "Subscribed"
                 : "Subscribe"}

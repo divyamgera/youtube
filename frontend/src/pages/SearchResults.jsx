@@ -1,8 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { searchVideos } from "../utils/auth";
-
-// import { Feed } from "../components/Feed";
 import AvatarLoader from "../components/AvatarLoader";
 import { Sidebar } from "../components/Sidebar";
 import '../pagesStyles/Home.css'
@@ -42,7 +40,7 @@ const SearchResults = ({ sidebar }) => {
   return (
     <>
       <Sidebar sidebar={sidebar} />
-      <div className={`container ${sidebar ? "" : "large-container"}`}>
+      <div className={`container`}>
         <h2>Search results for "{query}"</h2>
 
         {loading && <AvatarLoader />}
@@ -50,8 +48,8 @@ const SearchResults = ({ sidebar }) => {
         {!loading && videos.length === 0 && <p>No results found</p>}
 
         {videos.map((video) => (
-          // <Feed key={video._id} video={video} />
-          <VideoCard key={video._id} video={video} variant="compact" />
+          
+          <VideoCard key={video._id} video={video} variant="list" />
         ))}
       </div>
     </>

@@ -52,7 +52,7 @@
 
 
 .subscribe {
-  margin-left: auto;
+  /* margin-left: auto; */
   background: #ff0000;
   color: #fff;
   padding: 10px 20px;
@@ -67,7 +67,7 @@
 }
 
 .subscribed {
-  margin-left: auto;
+  /* margin-left: auto; */
   background: var(--card-bg);
   color: var(--text-color);
   padding: 10px 20px;
