@@ -93,11 +93,11 @@ export const Feed = () => {
               </Link>
 
               <div className="yt-info">
-                <img
+               <Link to={`/users/c/${video?.owner?.username}`}> <img
                   className="yt-avatar"
                   src={video?.owner?.avatar}
                   alt="avatar"
-                />
+                /> </Link>
 
                 <div className="yt-text">
                   <h3 className="yt-title">{video.title}</h3>
